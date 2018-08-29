@@ -1,6 +1,6 @@
 % Quick review of Git
 % Pierre Navaro
-% Version FinisteR 2018
+% Version FinisteR 2018  29/08/2018
 
 # About Dropbox
 
