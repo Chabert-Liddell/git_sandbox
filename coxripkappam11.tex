@@ -1,0 +1,959 @@
+\documentclass{gSTA2e}
+
+%\usepackage{amsthm}
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+%\usepackage{amssymb}
+\usepackage{natbib}
+
+\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+
+
+\usepackage{tabularx}
+%\usepackage[dvips]{epsfig}
+%\usepackage[dvips]{graphics}
+\usepackage{graphicx}
+
+%\setlength{\topmargin}{-0.2in}
+%\setlength{\textwidth}{16.4 cm}
+%\setlength{\textheight}{23.5 cm}
+%\setlength{\oddsidemargin}{+0.1in}
+%\setlength{\evensidemargin}{+0.1in}
+
+\def\N{\mathbb{N}}
+\def\P{\mathbb{P}}
+\def\E{\mathbb{E}} %
+\def\L{\mathbb{L}}
+\def\F{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\B{\mathbb{B}}
+\def\Z{\mathbb{Z}}
+\def\f{{\cal F}} % classe de fonctions
+\def\g{{\cal G}} % classe de fonctions
+\def\1{\ \mbox{\large I}}
+%\def\R{\mbox{I\hspace{-.15em}R}}
+%\def\E{\mbox{I\hspace{-.15em}E}} %
+%\def\P{\mbox{I\hspace{-.12em}P}} % % r\'eels
+%\def\C{\mbox{I\hspace{-.47em}C}} %complexes
+%\def\F{\mbox{I\hspace{-.15em}F}} % tribu F
+%\def\L{\mbox{I\hspace{-.6em}1}} % fonction carct\'eristique
+%\def\1{\mbox{I\hspace{-.6em}1}} % fonction carct\'eristique
+\def\var{\mbox{Var}\,}
+\def\cov{\mbox{Cov}\,}\def\Cov{\mbox{Cov}\,}
+\def\lip{\mbox{Lip}\,}
+\def\Lip{\mbox{Lip}\,}
+\newtheorem{theo}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{Def}{Definition}
+
+\title{Ripley statistic for Cox point processes}
+\author{Félix Cheysson \footnote{UMR MIA-Paris, INRA, AgroParisTech, Université Paris-Saclay, 75231, Paris, France.}\\Gabriel Lang \footnote{UMR MIA-Paris, INRA, AgroParisTech, Université Paris-Saclay, 75231, Paris, France.}
+ \\ Eric Marcon\footnote{ UMR ECOFOG, AgroParisTech, Cirad, CNRS, INRA,
+ Université des Antilles, Université de la Guyane,97300, Kourou, France.
+ }}
+\date{}
+
+
+\newcommand{\findem}{\hfill\hbox{\hskip 4pt
+\vrule width 5pt height 6pt depth 1.5pt}\vspace{.5cm}\par}
+
+
+\begin{document}
+
+
+\maketitle
+
+ \centerline{\bf R{\'e}sum\'e}
+ We recall the definition  of \cite{DOLAP} for weak dependence  in the case of Cox point processes; using the weak
+ dependence property, we show the central limit theorem for the
+ Ripley statistic; The Cox process can be chosen as the counter hypothesis for the Ripley test of clustering defined in Lang and
+ Marcon so that  the asymptotical
+ distribution of the Ripley statistics under this assumption is a way to evaluate of the power of this test.
+\section {Introduction}
+In this paper, we introduce a weak dependence condition for Cox processes that is derived from weak dependence in the sense of \cite{DE}.
+ Then we give the log Gaussian process  as a possible example. In the following section, we introduce the biased version of the Ripley estimator and compute its two first moments for Cox processes and their limits as the cubic observation window inflates with rate $n$. Then we prove the Central Limit Theorem for this estimator. The proof makes use of the dependence condition but also of the special structure of Cox processes that are conditionally Poisson, so that the proof in \cite{LAMA} may be adapted to this case.
+\section{Weak dependence for point processes}
+Let $X$ be a point process on $\R^d$ equipped with the $L^1$-distance. Let $N$ denote the
+corresponding counting process. 
+
+\subsection{Definition}
+First we  define the $\kappa$-weak-dependence derived from the definition in \cite {DE} for time series:
+\begin{Def}\label{kwdeppc}$X$ is a
+$\kappa$-dependent point process if for any Lipschitz
+real function $f$ and $g$ that are  bounded by 1,  any integers $u$ and $v$, any
+$(A_i)_{i=1,\ldots,u}$, $(B_j)_{j=1,\ldots,v}$ collection of
+compact sets of  $A$ such that the distance between $
+\bigcup_{i=1\ldots,u}A_{i}$ and $ \bigcup_{j=1\ldots,v}B_{j}$ is
+larger than $r$ then
+\begin{multline*}
+|\cov\left(f(N(A_{1}),\ldots,N(A_u)),g(N(B_{1}),\ldots,N(B_v))\right)|\\ \leq
+\psi\left((A_i)_{i=1,\ldots,u}, (B_j)_{j=1,\ldots,v}\right)\|g\|_\infty\|f\|_\infty\kappa(r).
+\end{multline*} 
+The set function $\psi\left((A_i)_{i=1,\ldots,u}, (B_j)_{j=1,\ldots,v}\right)$ is $\sum_{i=1}^{u}
+   m( A_{i})\sum_{j=1}^{v}  m( B_{j}),$
+  where $m(K)$ is the Lebesgue measure of the compact set $K$ for the $L^1$-distance.
+ \end{Def}
+\section{Weak dependent Cox processes}
+In this section, we get covariance bounds  that  allow to get a Central Limit Theorem for Ripley $K$ statistics for a large class of Cox processes. 
+
+\subsection{Definitions} First we define our class of Cox processes:
+
+\begin{Def} Consider a stationary positive bounded  Lipschitz field $Z$ on $\R^d$.  The Cox
+process is the point process that, conditionally to $Z$, is an
+inhomogeneous Poisson process of intensity $Z$.
+\end{Def}
+As proved in \cite{DOLAP} for the $\eta$-weak dependence, the $\kappa$-weak dependence property is inherited from the corresponding $\kappa$-weak dependence property of the intensity field $Z$: the field is said to be $\kappa$-weakly dependent with rate $\kappa(r)$ if  for any integers $u$ and $v$, any bounded real functions $f$ on $(\R^d)^u$ and $g$ on $(\R^d)^v$ that are Lipschitz with respect to the $\L^1$-norm, any  sequences $(x_i)_{i=1\ldots,u}$ and $(y_j)_{i=1\ldots,v}$ of $\R^d$ such that the distance between the $x_i$'s and the $y_j$'s  is more than $r$, if $$
+|\cov\left(f(Z(x_1),\ldots,Z(x_u)),g(Z(y_1),\ldots,Z(y_v))\right)|\leq uv\Lip(f)\Lip(g)\kappa(r).
+$$
+The inheritance property writes: 
+\begin{prop}\label{Coxw} Let $X$ be a Cox process with intensity field $Z$. If  $Z$ is Lipschitz positive bounded and $\kappa$-weakly dependent for a sequence $\kappa_Z(r)$, $X$ is $\kappa$-weakly dependent  for a sequence $\kappa_X(r)=8K^2\kappa_Z(r)$, where $K$ is the Lipschitz constant of $Z$.
+\end{prop}
+\begin{proof} The proof is similar than for the  $\eta$-dependence in \cite{DOLAP}.  \\Define  $X_A=f(N(A_{1}),\ldots,N(A_u))$ and
+$ X_B=g(N(B_{1}),\ldots,N(B_v))$, then: $$
+  \cov\left(X_A, X_B\right)=\E\; \cov\left(X_A, X_B|Z\right)+  \cov\left(\E(X_A|Z), \E(X_B|Z)\right).$$
+ Conditionally to $Z$, $X$ is a Poisson process. The first term is zero because the counting processes  $N(A_{i})$ and $N(B_j)$
+ are independent for a Poisson process as soon as the  sets are non
+ intersecting.  Then 
+\begin{eqnarray*}
+\E(X_A|Z)&=&\sum_{n_{1},\ldots,n_{u}=0}^\infty f\left(n_{1},\ldots,n_{u}\right) \prod_{i=1}^{u}\P(N(A_{i})=n_i)\\
+&=&\sum_{n_{1},\ldots,n_{u}=0}^\infty f\left(n_{1},\ldots,n_{u}\right) \prod_{i=1}^{u}h_{n_{i}}(Z(A_{i})),
+ \end{eqnarray*} where $h_{n}(x)=e^{-x}x^{n}/n!$.
+Define $$F(x_{1},\ldots,x_{u})=\sum_{n_{1},\ldots,n_{u}=0}^\infty  f\left(n_{1},\ldots,n_{u}\right) \prod_{i=1}^{u}h_{n_{i}}(x_{i}).$$ Then
+$\E(X_A|Z)=F({Z(A_1}),\ldots,Z(A_{u}))$. Let
+$(A_{i,j})_{j\in J_i}$ be a collection of partitions of $A_i$
+ such that the diameters of the $A_{i,j}$ are less than $\varepsilon$. Fix a point $x_{i,j}$ in each of the $A_{i,j}$. Then
+ $$
+Z(A_i)=\int_{A_i}Z(x)dx=\bar Z(A_i)+R_i,
+ $$
+with $\bar Z(A_i)= \sum_{j\in J_i}m(A_{i,j})Z(x_{i,j})$ and $|R_i|\leq m(A_i)K\varepsilon$.
+
+Denote $\bar X_A=F(\bar Z(A_1),\cdots,\bar Z(A_u))$ and $\bar X_B=G(\bar Z(B_1),\cdots,\bar Z(B_u)$ .Then
+ \begin{eqnarray*}\left|\cov\left(X_A, X_B\right)\right|\!&
+ \le&\!\!\left|\cov\left(\bar X_A,\bar X_B \right)\right| \\
+ &+&\E\left |X_B(X_A-\bar X_A)\right|+\E\left |\bar X_A(X_B-\bar X_B)\right|\\
+ &+&\E\left |X_B\right|\E\left |X_A-\bar X_A\right|+\E\left |\bar X_A\right|\E\left |X_B-\bar X_B\right|.
+ \end{eqnarray*}
+Note that $\|F\|_\infty=\|f\|_\infty$.
+\begin{eqnarray*}\left|\cov\left(X_A, X_B\right)\right|\!
+ \le\!\!\left|\cov\left(\bar X_A,\bar X_B \right)\right| 
+ +2\|g\|_\infty\E\left |X_A-\bar X_A\right|+2\|f\|_\infty\E\left |X_B-\bar X_B\right|.
+ \end{eqnarray*}
+ We compute the Lipschitz coefficient of $F$. Recall that $h_{n}(x)$ is a
+bounded and $C^1$ function with derivative
+$h'_{n}(x)=e^{-x}(nx^{n-1}-x^{n})/n!$. Then
+\begin{eqnarray*}
+  \left|\frac{\partial F}{\partial x_1}(x_1,\cdots,x_{u})\right| &\le&\sum_{n_{1},\ldots,n_{u}=0}^\infty \left|f\left(n_{1},\ldots,n_{u}\right)\right| (n_1x_1^{n_1-1}+x_1^{n_1})\frac{e^{-x_1}}{n_1!} \prod_{i=2}^{u}h_{n_{i}}(x_{i}) \\
+ &\le&\|f\|_\infty\sum_{n_{1},\ldots,n_{u}=0}^\infty (n_1x_1^{n_1-1}+x_1^{n_1})\frac{e^{-x_1}}{n_1!} \prod_{i=2}^{u}h_{n_{i}}(x_{i}) \\
+ &\le&\|f\|_\infty\sum_{n_{1}=0}^\infty (n_1x_1^{n_1-1}+x_1^{n_1})\frac{e^{-x_1}}{n_1!} \prod_{i=2}^{u}\sum_{n_{i}=0}^\infty h_{n_{i}}(x_{i}) \\
+ &\le&2\|f\|_\infty
+\end{eqnarray*}
+and the same bound is true with the other partial derivatives so that the Lipschitz coefficient of $F$ is less than
+$2\|f\|_\infty$. Then $$\E\left |X_A-\bar X_A\right|\leq 2\|f\|_\infty\sum_{i=1}^u |R_i|\leq 2K\varepsilon\|f\|_\infty\sum_{i=1}^u m(A_i)$$ and
+ \[\left|\cov\left(X_A, X_B\right)\right|\!
+ \le\!\!\left|\cov\left(\bar X_A,\bar X_B \right)\right| 
+ +4K\varepsilon\|f\|_\infty\|g\|_\infty\left(\sum_{i=1}^u m(A_i)+\sum_{j=1}^v m(B_j)\right).
+ \]
+Write $F(\bar Z(A_1),\cdots,\bar Z(A_u))=\bar F(( (x_{i,j})_{i=1,..u;j\in J_i})$, $\Lip (\bar F)\le 2K\|f\|_\infty\varepsilon^{d}$ and the number of $x_{i,j}$
+ is less than $\varepsilon^{-d}\sum
+ m( A_i)$.
+\begin{multline*}
+ \left|\cov\left(F(\bar Z(A_1),\cdots,\bar Z(A_u)),G(\bar Z(B_1),\cdots,\bar Z(B_u)) \right)\right|
+ \\\le4K^2\|g\|_\infty\|f\|_\infty\sum_{i=1}^u  m( A_i)\sum_{j=1}^v m( B_j) \kappa^Z(r).
+\end{multline*}
+
+Choosing $\varepsilon\leq K/2(\sum_{i=1}^um(A_i)\wedge\sum_{j=1}^vm(B_j))\kappa_Z(r)$ gives the result.
+\end{proof}As a by-product, the proof  of this proposition gives a relation between continuous index set and discrete index set random fields.
+For any measurable subset $B$ of $\R^d$ define $Z(B)=\int_BZ(x)dx$. The discrete field will be used in the asymptotic expression of the variance of the Ripley estimator.
+ For each $i$ in $\Z^d$, define $B_i$ as the cube of side 1 with upper corner equal to $i$ and $\hat Z_i$ as $Z(B_i)$.
+ \begin{prop}
+ If $Z$ is an $\kappa$-weakly dependent field on $\R^d$ for a sequence $\kappa_Z(r)$,  then $\hat Z$ is an $\kappa$-weakly dependent field on $\Z^d$ for a sequence $\kappa_{\hat Z}(r)$, such that $\kappa_{\hat Z}(1)=var(Z_i)$ and $\kappa_{\hat Z}(r+1)=8K^2\kappa_Z(r)$for $r>0$.
+ \end{prop} 
+
+For Cox processes, we also prove  a covariance bound for the product of two counting measures  with a multiplicative set function $\psi'$:
+\begin{prop}\label{Prod} Let $X$ be a Cox process with intensity field $Z$. If  $Z$ is positive, Lipschitz with the constant $K$ and   bounded by $M_Z$ and $\kappa$-weakly dependent, for four non intersecting $\R^d$-cubes $A_1$, $A_2$, $B_1$ and $B_2$ such that $A_1\cup A_2$ and  $B_1\cup B_2$ have interdistance greater than $r$:
+		\begin{equation*}
+	\var\left(N(A_1)N(A_2)\right)\leq  M_Z^2 m(A_1)m(A_2)\left(1+ M_Z\left(m(A_1)+ m(A_2)\right)+M_Z^2m(A_1) m(A_2)\right)
+	\end{equation*}
+	\begin{equation*} 
+\left|\cov\left(N(A_1)N(A_2),N(B_1)N(B_2)\right)\right|\leq 8M_Z\psi'(A_1, A_2,B_1,B_2)\kappa_Z(r),
+ \end{equation*}
+with $\psi'(A_1, A_2,B_1,B_2)=m(A_1) m(A_2)m(B_1)m(B_2)$.
+\end{prop}
+This multiplicative form of the set function allows the extension of covariance bounds of product measures for non cubic sets (see Proposition \ref{Triangle}).
+
+\begin{proof} Define  $X_A=N(A_1)N(A_2)$ and
+$ X_B=N(B_{1})N(B_2)$, then: 
+$$
+\var\left(X_A\right)=\E\;\var\left(X_A|Z\right)+\var\left(\E(X_A|Z)\right)$$
+As $N(A_1)$, $N(A_2)$ are  independent and Poisson distributed conditionally to $Z$,\begin{eqnarray*}
+\E(X_A|Z)&=&\E(N(A_1)|Z)\E(N(A_2)|Z)=Z(A_1)Z(A_2).\\
+ \var\left(X_A|Z\right)&=&\E(N(A_1)^2N(A_2)^2|Z)-\E((N(A_1)N(A_2))|Z)^2\\
+&=&\E(N(A_1)^2|Z)\E(N(A_2)^2|Z)-\E(N(A_1)|Z)^2\E(N(A_2)|Z)^2\\
+&=&Z(A_1)(Z(A_1)+1)Z(A_2)(Z(A_2)+1)-Z(A_1)^2Z(A_2)^2\\
+&=&Z(A_1)Z(A_2)(Z(A_1)+Z(A_2)+1)\end{eqnarray*}
+ and using the bound for the field $Z$, $Z(A_1)\leq M_Zm(A_1)$ so that 
+\begin{eqnarray*}
+\var\left(\E(X_A|Z)\right)&=&\var\left(Z(A_1)Z(A_2)\right)\leq M_Z^4m(A_1)^2 m(A_2)^2.\\
+ \E\left(\var\left(X_A|Z\right)\right)&=&\E(Z(A_1)Z(A_2)(Z(A_1)+Z(A_2)+1))
+\\&\leq& M_Z^3\left((m(A_1)^2m(A_2)+m(A_1) m(A_2)^2)\right)+ M_Z^2m(A_1)m(A_2).\end{eqnarray*}
+
+Consider now the covariances :
+ $$ \cov\left(X_A, X_B\right)= \E\;\cov\left(X_A,X_B|Z\right)+\cov\left(\E(X_A|Z), \E(X_B|Z)\right).
+	$$
+As $N(A_1)$, $N(A_2)$, $N(B_1)$, $N(B_2)$ are  independent conditionally to $Z$,  $\cov\left(X_A,X_B|Z\right)$ is null. 
+Fix $\varepsilon>0$ and define $\bar X_A$, $\bar X_B$ as in the preceding proof
+\begin{eqnarray*}\left|\cov\left(X_A, X_B\right)\right|\!&
+ \le&\!\!\left|\cov\left(\bar X_A,\bar X_B \right)\right| \\
+ &+&\E\left |X_B(X_A-\bar X_A)\right|+\E\left |\bar X_A(X_B-\bar X_B)\right|\\
+ &+&\E\left |X_B\right|\E\left |X_A-\bar X_A\right|+\E\left |\bar X_A\right|\E\left |X_B-\bar X_B\right|.
+ \end{eqnarray*} Then
+ \begin{eqnarray*}\left|\cov\left(X_A, X_B\right)\right|&
+ \le&\left|\cov\left(\bar Z(A_1)\bar Z(A_2),\bar Z(B_1)\bar Z(B_2) \right)\right| \\
+ &+& 2M_Z^2m(B_1)m(B_2)\E\left|Z(A_1)Z(A_2)\!-\bar Z(A_1)\bar Z(A_2)\right|
+ \\
+ &+& 2M_Z^2m(A_1)m(A_2)\E\left|Z(B_1)Z(B_2)\! -\bar Z(B_1)\bar Z(B_2)\right|.
+ \end{eqnarray*}
+\begin{multline*}
+ \left|\cov\left(\bar Z(A_1)\bar Z(A_2),\bar Z(B_1)\bar Z(B_2) \right)\right|
+ \\\le\sum_{i,j,k,l}m(A_{1,i})m(A_{2,j})m(B_{1,k})m(B_{2,l}) \left|\cov\left(Z(x_{1,i})Z(x_{2,j}),Z(y_{1,k})Z(y_{2,l})\right)\right|
+ \\\le 4M_Z m(A_{1})m(A_{2})m(B_{1})m(B_{2}) \kappa_Z(r)
+\end{multline*}
+\begin{align*}
+\E\left|Z(A_1)Z(A_2)-\bar Z(A_1)\bar Z(A_2)\right|&\le M_Z K\varepsilon(m(A_1)+m(A_2))\\
+\E\left|Z(B_1)Z(B_2)-\bar Z(B_1)\bar Z(B_2)\right|&\le M_Z K\varepsilon(m(B_1)+m(B_2))
+\end{align*}
+
+Choosing $$\varepsilon<\frac{2\kappa_Z(r)}{KM_Z^2}\left(\frac{m(A_{1})m(A_{2})}{m(A_1)+m(A_2)}+\frac{m(B_{1})m(B_{2})}{m(B_1)+m(B_2)}\right)$$ gives the result.
+\end{proof}
+
+\subsection{Example}
+To close this section, we propose the widely used model of log Gaussian Cox processes as an example of a $\kappa$-weakly dependent process.
+We show that the exponential of a weakly dependent Gaussian field is $\kappa$-weakly dependent:
+\begin{prop}
+Let $Y$ be a stationary isotropic Gaussian field with variance 1 and autocovariance function $\gamma(r)\leq Cr^{-\alpha}$, for $r>1$ and $\alpha>d+2$. Define the field $Z$ as the exponential of $Y$ and $X$ as the Cox process with intensity $Z$. Then $X$ is $\kappa$-weakly dependent with $\kappa(r)\leq C\log(r)r^{-\alpha+2}$.
+ \end{prop} 
+ \begin{proof} Let $M>0$ to be specified later. Define the truncation function $T_M(x)= x\1\{|x|\leq M\}$. Let $(x_1,\ldots,x_{u+v}) \in (\R^d)^{u+v}$ and such that the sets $\{x_1,\ldots,x_u\}$ and $\{x_{u+1},\ldots,x_{u+v}\}$ have interdistance $r$. Denote $Y_i= Y(x_i)$, $Z_i=\exp(Y_i)$ and define $\bar Y_i= T_M(Y_i)$  and $\bar Z_i=\exp(\bar Y_i)$. Let $f$ and $g$ two differentiable functions on $(\R^d)^u$ and $(\R^d)^v$ with bounded partial derivatives.
+\begin{align*}
+\E\left(f(Z_1,..,Z_u)g( Z_{u+1},.., Z_{u+v})\right)=&E\left(f(\bar Z_1,..,\bar Z_u)g(\bar Z_{u+1},..,\bar Z_{u+v})\right)\\+&E\left(f(Z_1,..,Z_u) (g( Z_{u+1},.., Z_{u+v})-g(\bar Z_{u+1},..,\bar Z_{u+v}))\right)\\+&E\left(g(\bar Z_{u+1},..,\bar Z_{u+v})(f(Z_1,..,Z_u) -f(\bar Z_1,..,\bar Z_u))\right)
+\end{align*}  
+Following \cite{DE}, paragraph 3.5.2, p. 55, for $f$ and $g$ two differentiable functions with bounded derivative:
+ \begin{align*}
+\left|E\left(f(\bar Z_1,..,\bar Z_u)g(\bar Z_{u+1},..,\bar Z_{u+v})\right)\right|&=\left|E\left(f\left(e^{T_M( Y_1)},..,e^{T_M( Y_u)}\right)g\left(e^{T_M( Y_{u+1})},..,e^{T_M( Y_{u+1})}\right)\right)\right|
+\\&\leq uv\left\|D\left(f\left(e^{T_M(\cdot)}\right)\right)\right\|_\infty\left\|D\left(g\left(e^{T_M(\cdot)}\right)\right)\right\|_\infty \sup_{i,j }\cov (Y_i, Y_{u+j})
+\\&\leq Cuv\|Df\|_\infty\|Dg\|_\infty e^{2M}r^{-\alpha}.
+\end{align*}
+For the standard Gaussian distribution function:
+$$
+\E(|Y|\1\{|Y|>M\})\leq 2\int_M^\infty x e^{-x^2/2}\leq 2 e^{-M^2/2}.
+$$
+\begin{align*}
+|\E\left(f(Z_1,\ldots,Z_u) (g( Z_{u+1},\ldots, Z_{u+v})-g(\bar Z_{u+1},\ldots,\bar Z_{u+v}))\right)|
+\\\le \|f\|_\infty\E\left|(g( Z_{u+1},\ldots, Z_{u+v})-g(\bar Z_{u+1},\ldots,\bar Z_{u+v}))\right|
+\\\le \|f\|_\infty\|Dg\|_\infty \sum_{j=1}^v \E(|Y_{u+j}|\1\{|Y_{u+j}|>M\}))
+\\ \le 2v\|f\|_\infty\|Dg\|_\infty e^{-M^2/2} 
+\end{align*}  
+Symmetrically
+\begin{multline*}
+|E\left(g(\bar Z_{u+1},\ldots,\bar Z_{u+v})(f(Z_1,\ldots,Z_u) -f(\bar Z_1,\ldots,\bar Z_u))\right)|\le 2 u\|Df\|_\infty\|g\|_\infty e^{-M^2/2}
+\end{multline*}  
+and
+\begin{multline*}
+|\E(f(Z_1,\ldots,Z_u)\E(g( Z_{u+1},\ldots, Z_{u+v})) -\E(f(\bar Z_1,\ldots,\bar Z_u))\E(g(\bar Z_{u+1},\ldots,\bar Z_{u+v}))|\\\leq\|f\|_\infty\E|g( Z_{u+1},\ldots, Z_{u+v})-g(\bar Z_{u+1},\ldots,\bar Z_{u+v})|\\+\|g\|_\infty\E|f(Z_1,\ldots,Z_u) -f(\bar Z_1,\ldots,\bar Z_u)|
+\\\leq 2(u\|Df\|_\infty\|g\|_\infty+v\|f\|_\infty\|Dg\|_\infty)e^{-M^2/2}.
+\end{multline*}  
+From this,
+\begin{multline*}
+|\E\left(f(Z_1,\ldots,Z_u)g( Z_{u+1},\ldots, Z_{u+v})\right) |\leq Cuv\|Df\|_\infty\|Dg\|_\infty e^{2M}r^{-\alpha} \\+2(u\|Df\|_\infty\|g\|_\infty+v\|f\|_\infty\|Dg\|_\infty)e^{-M^2/2}.
+\end{multline*}  
+Choosing $M= \log (r)$ for $r >1$ gives the result.
+ \end{proof}
+\section{Ripley K statistic for weakly dependent Cox process}%\end{document}
+
+\subsection{Definition}
+We assume that we observe samples of a stationary isotropic $\kappa$-weakly dependent Cox process  on the set $A_n=[0,n]^d$ and that the size  $n$ goes to
+infinity. For such processes, Ripley $K$ function writes
+$$
+K(R)=\frac  1 {\rho^2} \int_{B(0,R)}\E(X(0)X(x))dx
+$$
+For a given $R\in\R$ and  a set of $N$ points $S $ in $A_n$, the Ripley statistic counts the number of couple with interdistance less than $R$. It is defined as
+$$
+\widehat K_{n}(R)=\frac {n^d} {N(N-1) }\sum_{X_i\neq X_j \in S}
+\1\{d(X_i,X_j)\leq R\}.
+$$
+ This version of the statistic does not consider the intensity $\rho$ of the process as known. \\
+ 
+\subsection{Expectation}
+Section  A VERIFIER We compute the expectation of the estimator and its limit as $n$ tends to infinity. Recall that for a stationary Cox process $K(R)=\frac 1{\rho^2}\int_{B(0,R)} \E( Z(0) Z(x))dx$.
+\begin{prop}
+The expectation $\E(\widehat K_{n}(R))$ converges to $K(R)$ as $n$ tends to infinity.
+\end{prop}
+\begin{proof}
+ Conditionally to $Z$, the Cox process is an  inhomogeneous Poisson process. It consists in $N$ points sampled independently from the
+ distribution density $\tilde Z=Z/Z(A_n)$ over $A_n$, where $N$ is the counting measure of the Poisson process distributed with parameter $Z(A_n)$. Define $e(R,\tilde Z)=\E(\1\{ d(U_1,U_2)\leq R\})$ where $U_1$, $U_2$ are independent and $\tilde Z$-distributed.
+$$
+\E(\widehat K_{n}(R)|Z) =n^d\P\{N>1|Z\}e(R,\tilde Z)
+$$
+$$
+\E(\widehat K_{n}(R)) =n^d\E\left(\P\{N>1|Z\} e(R,\tilde Z)\right)
+$$
+First we prove that $\P\{N>1|Z\}$ converges a.s. to 1; Lemma \ref{SLLN} shows that as $n$ tends to infinity, $Z(A_n)$ converges a.s. to $+\infty$. Then $\P\{N>1|Z\}=1- (1+Z(A_n))e^{-Z(A_n)}$ converges a.s. to 1.\\
+By definition
+$$e(R,\tilde Z)=\iint_{A_n^2} \tilde Z(x_1) \tilde Z(x_2)\1\{ d(x_1,x_2)\leq R\}dx_1dx_2$$
+Using the stationarity of $Z$ :
+$$\E e(R,\tilde Z)= \int_{A_n}dx_1\int_{B(x_1,R)\cap A_n} \E(\tilde Z(0) \tilde Z(x))dx.$$ 
+From Lemma \ref{SLLN}, $Z(A_n)/n^d$ converges a.s. to $\rho$, $\E(\tilde Z(0) \tilde Z(x))$ converges to $n^{-2d}\E(Z(0)Z(x))dx$ and $\E e(R,\tilde Z)$ converges to $n^{-d}K(R)$. Then $\E(\widehat K_{n}(R))$converges to  $K(R)$.
+\end{proof}
+
+\begin{lem}\label{SLLN}Let $Z$ be a positive bounded $\kappa$-weak dependent field. Assume that its dependence coefficients $\kappa(r)$ are less than $Cr^{-\alpha}$ with $C>0$ and $\alpha>3d$.
+Then $Z(A_n)/n^d$ and $N(A_n)/n^d$ converge a.s. to $\rho$.
+\end{lem}
+\begin{proof}  
+The first result is a direct consequence of Lemma 8.1 in \cite {DE}. For $i$ in $\Z^d$, $p$ in $\N$, let $P_{i,p}$ the $d$-dimensional cube  with side $p$ and upper corner $ip$. Then $Z(A_n)=\sum_{i\in \{1,..,n\}^d}Z(P_{i,1})$. Lemma 8.1 implies that
+$$
+\E\left(\frac{Z(A_n)-\rho n^d}{n^{d/2}}\right)^4\leq C.
+$$
+Denote $T_n=\frac{Z(A_n)}{n^d}-\rho$. We get
+\begin{equation}\label{T4}
+	\E(T_n^4)\leq \frac{C}{n^{2d}}
+\end{equation}
+so that $\sum_{i=1}^n\E (T_i^4)< \infty.$ 
+From this $\E\left(\sum_{i=1}^nT_i^4\right)< \infty $, $\sum_{i=1}^nT_i^4<\infty$ a.s. and $T_n$ converges a.s. to 0.\\
+Denote $W_{n}=\frac{N(A_n)}{\rho n^d}$.  We have $\E(W_{n})=\frac{\E(Z(A_n))}{\rho n^d}$.
+ $$ \var(W_n)=\E(\var(W_n)|Z(A_n))+\var(\E(W_n)|Z(A_n)))=\frac 1{n^{2d}\rho^2}\left(\E(Z(A_n))+\var(Z(A_n))\right).$$
+ From equation (\ref{T4}), we get $$\frac 1{\rho^2n^{2d}}\var(Z(A_n))=\frac 1{\rho^2}\E(T_n^2)\leq\frac {C^{1/2}}{\rho^2n^d},$$ so that $ \var(W_n)\leq \frac {\rho+C^{1/2}}{\rho^2n^d}$. For $\delta>0$, the Markov
+inequality gives
+$$\P(|W_n-\E(W_n)|>\delta)\le
+\frac{\var(W_n)}{\delta^2}.$$ Then, with
+$\delta=n^{-1/4}$,
+$\displaystyle\sum_{n=1}^\infty\P(|W_n-1|>n^{-1/4})<\sum_{n=1}^\infty\frac  {\rho+C^{1/2}}{\rho^2n^{d-1/2}}<\infty$.
+From the Borel-Cantelli lemma, we get that $W_n-\E(W_n)$
+converges a.s. to 0. As $\E(W_n)=\frac{\E(Z(A_n))}{\rho n^d}$, it converges to 1. \end{proof}
+
+
+\subsection{Central Limit Theorem}
+\noindent We show that a normalized vector of  $K$ statistics for
+different $r$ converges in distribution to a normal vector. Let us establish a formula for the asymptotic variance. For $i$ in $\Z^d$, $p$ in $\N$, let $P_{i,p}$ the $d$-dimensional cube  with side $p$ and upper corner $ip$.
+Define $\zeta_{i,i,p,R}=\sum_{X_k\neq X_l\in S\cap P_{i,p}}\1\{d(X_k,X_l)\leq R\}$ and $\zeta_{i,j,p,R}=\sum_{X_k\in S\cap P_{i,p},X_l\in S\cap P_{j,p}}\1(\{d(X_k,X_l)\leq R\}$.
+
+\begin{theo}\label{tcl} Let $Z$ be a positive  $\kappa$-weak dependent field. Assume that $Z$ is bounded by $C_Z>0$. Assume that its dependence coefficients $\kappa(r)$ are less than $Cr^{-\gamma}$ with $C>0$ and $\gamma>au moins 2???d$. Let $m$ be an integer, $0<R_1< \ldots< R_m$ a set of
+ reals, $M$ an integer such that $R_m<M$ and define ${\cal K}_{n}=(\widehat K_{n}(R_1),
+\ldots ,\widehat K_{n}(R_m))$:
+\begin{align*}
+n^{d/2}\rho^2\quad\left({\cal K}_{n}-(K(R_1), \ldots
+K(R_m))\right)&\rightarrow{\cal N}(0,\Sigma)
+\\ \text{ where }\Sigma_{s,t}&=\sum_{k,k'\in B(0,1)\cap\Z^d}\sum_{i'\in \Z^d}\cov(\zeta_{0,k,M,R_s},\zeta_{i',i'+k',M,R_t})
+	\end{align*}
+\end{theo}
+
+\section{Proofs}
+
+\subsection {Proof of Theorem \ref{tcl}.}We first prove that the sum defining $\Sigma$ converges. 
+Denote $N^{(2)}$ the counting process of the couples of points of $S$ and $A_{i,j,M,R_s}=\{(x,y)\in P_{i,M}\times P_{j,M},\;x\neq y,\;\1(\{d(x, y)\leq R_s\}\} $. Then $\zeta_{i,j,M,R_s}=N^{(2)}(A_{i,j,M,R_s})$.
+We extend the covariance bound to such non cubic sets:
+\begin{prop}\label{Triangle} Assume that $X$  satisfies the assumption of proposition 1; 
+Let $A_1$  and $A_2$ be two of  sets of kind $A_{i,j,M,R_s}$  separated by a distance $r$.
+\begin{align*} 
+\var\left(N^{(2)}(A_1)\right)&\leq M_Z^2m(A_1)\\
+\left|\cov\left(N^{(2)}(A_1),N^{(2)}(A_2)\right)\right|&\leq 8CM_Zm(A_1) m(A_2) r^{-\gamma}.
+\end{align*}
+\end{prop}
+\begin{proof}
+The sets  $A_{i,j}$ are bounded and  Borel sets. Cover $A_1$ with the grid of scale 1; Let $C(1)$ be the set of cubes of size $1$ of the grid  that are contained in  $A_1$. Let $C'(1)$ be the set of cubes of size $1$ of the grid  that intersect the boundary $\delta A_1$ of  $A_1$. Divide all the cubic cells of the preceding grid and define  $C(2)$ as the set of cubes of side $1/2$ that are contained in $A_1$ and in one of the cubes of $C'(1)$. Let $C'(2)$ be the set of cubes of size $1/2$ that intersect the boundary of $A_1$ and are contained in one of the cubes of $C'_1$. Iterate the method  to define $C(m)$ and $C'(m)$.
+The union of the sets $C_m$ for $m>0$ define a non-intersecting covering $\Omega_1$ of $A_1$.
+\begin{align*}
+\var\left(N^{(2)}(A_1)\right)\leq&\sum _{C\in \Omega_1} \sum _{C'\in \Omega_1}\left|\cov\left(N^{(2)}(C),N^{(2)}(C')\right)\right|
+\\\leq &\sum _{C\in \Omega_1} \sum _{C'\in \Omega_1}\var\left(N^{(2)}(C)\right)^{1/2}\var\left(N^{(2)}(C')\right)^{1/2}
+\end{align*}
+ Note that  $C=C_1\times C_2$ where $C_1$ and $C_2$ are cubes in $\R^d$ so that $N^{(2)}(C)=N(C_1)N(C_2)$. As the cubes $C=_1$ and $C_2$ have side less than one, \begin{align*}
+\var\left(N^{(2)}(C)\right) &\leq M_Z^2 m(C_1)m(C_2)\left(1+ M_Z\left(m(C_1)+ m(C_2))\right)+M_Z^2m(C_1) m(C_2)\right)\\
+&\leq M_Z^2 m(c_1)m(c_2)\left(1+ M_Z\right)^2.\end{align*}
+\begin{align*}
+\var\left(N^{(2)}(A_1)\right)\leq&\sum _{C\in \Omega_1} \sum _{C'\in \Omega_1}\left(M_Z+ M_Z^2\right)^2m(C_1)^{1/2}m(C_2)^{1/2}m(C'_1)^{1/2}m(C'_2)^{1/2}
+\\\leq &\left(M_Z^2+ M_Z\right)^2m(A_1)^2.
+\end{align*}
+  Define the similar covering $\Omega_2$ of $A_2$. By bilinearity of the covariance, we have 
+$$ 
+\left|\cov\left(N^{(2)}(A_1),N^{(2)}(A_2)\right)\right|\leq\sum _{C\in \Omega_1} \sum _{C'\in \Omega_2}\left|\cov\left(N^{(2)}(C),N^{(2)}(C')\right)\right|.
+$$
+Now we use Proposition \ref{Prod} for each of these covariances:
+\begin{align*}
+ \left|\cov\left(N^{(2)}(C),N^{(2)}(C')\right)\right|\leq &8CM_Zm(C_1)m(C_2)m(C'_1)m(C'_2)r^{-\gamma}\\ \leq &8CM_Z m(C)m(C')r^{-\gamma}.
+\end{align*}
+so that
+\begin{align*}
+ \left|\cov\left(N^{(2)}(A_1),N^{(2)}(A_2)\right)\right|\leq& 8CM_Z\sum_{C\in \Omega_1} \sum_{C'\in \Omega_2}  m(C)m(C')r^{-\gamma}\\ \leq &8CM_Z m(A_1)m(A_2)r^{-\gamma}.
+\end{align*}
+\end{proof}
+
+Note that $\zeta_{i,j,M,R_s}=0$ as soon as $d(i,j)>1$, so that
+$$
+\sum_{i,j,i'j'\in \{0,..,n-1\}^d}\cov(\zeta_{i,j,M,R_s},\zeta_{i',j',M,R_t})=\frac 1 {n^d} \sum_{k,k'\in B(0,1)\cap\Z^d}\sum_{i,i'\in \Z^d}\cov(\zeta_{i,i+k,M,R_s},\zeta_{i',i'+k',M,R_t}).$$
+As $n$ tends to infinity
+$$
+\sum_{i,i'\in \Z^d}\cov(\zeta_{i,i+k,M,R_s},\zeta_{i',i'+k',M,R_t})\longrightarrow n^d\sum_{i'\in \Z^d}\cov(\zeta_{0,k,M,R_s},\zeta_{i',i'+k',M,R_t}).$$
+
+But for fixed $k$ and $k'$ such that  $\|k\|\leq 1$ and $\|k'\|\leq 1$  and for $\|i'\|>4$, the distance between $A_{0,k,M,R_s}$ and $A_{i',i'+k',M,R_t}$ is larger than $M(\|i'\|-4)$. Using Proposition \ref{Triangle}:
+$$
+\cov(\zeta_{0,k,M,R_s},\zeta_{i',i'+k',M,R_t})|\leq 8CM_Z m(A_{0,k,M,R_s})m(A_{i',i'+k',M,R_t})(M(\|i'\|-4))^{-\gamma},
+$$
+ so that $\sum_{i'\in \Z^d}\cov(\zeta_{0,k,1,R},\zeta_{i',i'+k',1,R})$ is absolutely converging as soon as $\sum_i(2i+1)^{d-1}i^{-\gamma}$ is a converging series. 
+
+
+
+We prove the Central Limit Theorem by showing that any linear combination of the
+$\hat K_{n}(R_t)$ is asymptotically normal.  Let $\Lambda=(\lambda_1,
+\ldots \lambda_m)$ be a vector of real coefficients. We consider the combination
+$\sum_{t=1}^m\lambda_t\hat K_n(R_t).$
+We renormalize it under the form
+$$L_n=\frac{N(N-1)}{n^{2d}\rho^2}\sum_{t=1}^m\lambda_t\hat K_n(R_t)=
+\frac {1} {n^{d}\rho^2}\sum_{X_i\neq X_j \in S}
+\1\{d(X_i,X_j)\leq R_t\}.$$ 
+As $\frac{N(N-1)}{n^{2d}\rho^2}$ converges a.s. to 1,  by the Slutsky lemma the two variables converges to the same distribution. 
+\\ We use the Bernstein blocks technique. Set $p=n^{\alpha}$ and
+$q=n^{\beta}$ with $0<\beta<\alpha<1$ to be chosen later. Assume that the Euclidean division of $n$ by $(p+q)$ gives a quotient $a$
+and a remainder $s$.  We consider  $k$ blocks $P_{i,p}$ that are included in $A_n$ and separated by a gap of size $q$ and define the complement
+$Q_n=A_n\backslash\cup_iP_{i,p}$ the set of points that are  in
+none of the $P_{i,p}$'s. Define  $$f(x,y)=\sum_{t=1}^m \lambda_t\
+\1\{d(x,y)\leq R_t\}$$
+
+For each block $P_{i,p}$ and $Q_n$, we
+define:
+\begin{eqnarray*}
+u_{i,n}&=&\frac 1{n^{d/2}}\sum_{X_l\neq X_{l'}\in P_{i,p}}f(X_l, X_{l'}),
+\\v_{i,n}&=&\frac 1{n^{d/2}}\sum_{X_l \in P_{i,p} X_{l'} \in Q_n}f(X_l, X_{l'}),
+\\w_n&=&\frac 1{n^{d/2}}\sum_{X_l \neq X_{l'} \in Q_n}f(X_l, X_{l'}).
+\end{eqnarray*}
+then assuming that $q\geq M$, $f(X_l, X_{l'})=0$ if $X_l$ and $ X_{l'}$ are located in two different blocks, so that 
+$$
+n^{d/2}\rho^2(L_n-\E L_n )=\sum_{i=1}^{k}(u_{i,n}-\E
+u_{i,n})+\sum_{i=1}^{k}(v_{i,n}-\E v_{i,n})+w_{n}-\E w_{n}.
+$$
+ We show that the sum of the $u_{i,n}$ converges in distribution to a Gaussian variable
+  and that the other terms are negligible in ${\L}^2$.
+We check the conditions of the following CLT  from \cite{BD}.
+\begin{prop}\label{tab}Let $(z_{i,n})_{0\leq i\leq k(n)}$ be an array of
+random variables satisfying
+\begin{enumerate}
+    \item There exists  $\delta> 0$ such that $\sum_{i=0 }^{k(n)}\E|z_{i,n}|^{ 2+\delta}$ tends to $0$ as $n$ tends
+    to infinity,
+\item $\sum_{i=0 }^{k(n)}\var z_{i,n}$ tends to $\sigma^2$ as $n$
+tends    to infinity,
+    \item  $T(n)=\sum_{j=1}^{k(n)} \big |
+\cov(e^{it(z_{0,n}+\cdots+z_{j-1,n})},e^{itz_{j,n}})\big |$
+tends to $0$ as $n$ tends
+    to infinity.
+\end{enumerate}
+then $\sum_{i=0}^{k(n)}z_{i,n}$ tends in distribution to $ {\cal
+N}(0,\sigma^2)$ as $n$ tends to infinity.
+\end{prop}
+To check Condition 1, we compute the fourth order moment of
+$u_{i,n}-\E u_{i,n}$. Let $N_i$ be the number of points of $S$
+that fall in $P_{i,p}$. Let $(U_l)$ be independent locations in $P_{i,p}$ with  density $Z/Z(P_{i,p})$. 
+$$\E((u_{i,n}-\E u_{i,n})^4|N_i,Z)=\frac 1 {n^{2d}}\E\left(\sum_{l\neq l' = 1} ^{N_i}( f(U_l,U_{l'})-\E(f(U_l,U_{l'}))\right) ^4.$$ Denote
+$f_{1}$ and $f_{2}$ the Hoeffding's decomposing functions  of $f(U_l,U_{l'})$:
+\begin{align*}
+f_{1}(U_l)&=\E\left(f(U_l,U_{l'})|U_l)-\E(f(U_l,U_{l'})\right)\\
+f_{2}(U_l,U_{l'})&=f(U_l,U_{l'})-\E(f(U_l,U_{l'}))-f_1(U_{l'})-f_{1}(U_l)
+\end{align*}
+Then $\E(f_{1}(U_l))=0$,
+$\E(f_{1}(U_l)f_{2}(U_l,U_{l'}))=\E(f_{1}(U_{l'})f_{2}(U_l,U_{l'}))=0$ and
+$$
+  \sum_{l\neq l'= 1}^{N_i} f(U_l,U_{l'})-\E(f(U_l,U_{l'}))= 2(N_i-1)\sum_{l = 1} ^{N_i} f_{1}(U_l)+\sum_{l\neq l' = 1} ^{N_i} f_{2}(U_l,U_{l'}). $$
+Define
+$M_1=\E\left(\sum_{l = 1} ^{N_i} f_{1}(U_l)\right) ^4. $ Then $
+M_1=N_i\E(f_{1}^4(U_l))+6N_i(N_i-1)E(f_1^2(U_{l}))^2$ and as $f_1$ is bounded
+$\E (N_i-1)^4M_1= O\left(p^{6d}\right).$\\
+********************************************************************\\
+Lemme douteux pb Z(p) petit
+
+\begin{lem} Assume that $Z(P_{i,n})>(\rho/2) p^d$. Then $f_{1}(U_l)$ is $O(p^{-d})$  and $f_{2}(U_l,U_{l'})$ is bounded everywhere and $f_{2}(U_l,U_{l'})$ is $O(p^{-d})$ as soon as $\|U_l-U_{l'}\|>r$ .
+\end{lem}
+Et le cas ou Z(P) est petit probléme de champ f dependant. montrer que Z est borné inférieurement en utilisant lipshitz (si un point est haut il entraîne toute une bosse.
+\begin {proof} : The intensity of the inhomogeneous process is bounded by $C_Z$. So the density of $(U_l,U_{l'})$ is bounded by $(4C_Z/\rho^2)p^{-2d}$ and $f_{l'}(U_l)$ is bounded by $(4C_Z/\rho^2)p^{-d}$. Its expectation is equal to $\E(f(U_l,U_{l'}))$ and also bounded by $(4C_Z/\rho^2)p^{-d}$. When $\|U_l-U_{l'}\|>r$, $f_{2}(U_l,U_{l'})=-\E(f(U_l,U_{l'}))-f_1(U_{l'})-f_{1}(U_l)$ is
+bounded by $(12C_Z/\rho^2)p^{-d}$.\end{proof}
+
+********************************************************************\\
+
+Define $M_2= \E\left(\sum_{l\neq l' = 1} ^{N_i} f_{l,l'}(U_l,U_{l'})\right)
+^4 $.
+ Because $f_2$ is zero mean with respect to one coordinate, only the products where
+variables appear at least two times contribute.
+  \begin{eqnarray*}M_2&=
+&8\sum_{l\neq m = 1} ^{N_i} \E f_2^4(U_l,U_m)
++48\sum_{l\neq m\neq u = 1} ^{N_i}\!\!\!\E
+f_2^2(U_l,U_u)f_2^2(U_m,U_u)\\&+&96\sum_{l\neq m\neq u = 1} ^{N_i}\E f_2^2(U_l,U_m)f_2(U_m,U_u)f_2(U_l,U_u)\\
+&+&12\sum_{l\neq m \neq u\neq v= 1} ^{N_i}\E
+ f_2^2(U_l,U_m)f_2^2(U_u,U_v)\\
+&+&48\sum_{l\neq m \neq u\neq v= 1} ^{N_i}\E
+ f_2(U_l,U_m)f_2(U_m,U_u)f_2(U_u,U_v)f_2(U_v,U_l).
+ \end{eqnarray*} Because $f_2$ is bounded,
+$\displaystyle \E M_2=O(\E N_i(N_i-1)(N_i-2)(N_i-3)) =O\left(p^{4d}\right) $,
+so that
+$$
+\E(u_{i,n}-\E u_{i,n})^4=O\left(p^{6d}n^{-2d}\right).
+$$
+$$
+\sum_{i=0 }^{k}\E(u_{i,n}-\E
+u_{i,n})^4=O(p^{5d}n^{-d})=O(n^{d(5\alpha-1)}).
+$$
+so condition 1 is satisfied if $\alpha<1/5$.\\
+To check condition 2, we order the $u_{i,n}$ by the lexicographic order of its multi-index $i$ defining a sequence $z_{\ell,n}$ where $\ell=1\dots k$. We need the following lemma:
+\begin{lem} Asymptotical variance. The sum of the variances of the $z_{\ell,n}$ tends to $\Lambda^t\Sigma\Lambda$ where
+$\Sigma$ is defined in Theorem \ref{tcl}.
+\end{lem}
+\begin{proof}
+Note that the $z_{\ell,n}$ are i.i.d variables with the same 
+distribution as $\frac{1}{n^{d/2}}\sum_{t=1}^d\lambda_t\sum_{i,j,\in \{0,..p-1\}^d}\zeta_{i,j,1,R_t}$  and  variance equal to $
+\frac{1}{n^{d}}\Lambda^t\Sigma_p\Lambda$ where $\Sigma_p(s,t)=\sum_{i,j,i',j'\in \{0,..p-1\}^d}\cov(\zeta_{i,j,1,R_s},\zeta_{i',j',1,R_t}).$
+$$\sum_{l=0 }^{k}\var z_{l,n}=\frac{1}{n^{d}}\Lambda^t\Sigma_p\Lambda=\frac{kp^d}{n^{d}}\frac1{p^d}\Lambda^t\Sigma_p\Lambda$$ where, as $n$ tends to infinity, $\frac{kp^d}{n^{d}}$ tends to 1 and as $p$ tends to infinity, $\frac1{p^d}\Sigma_p(s,t)$ tends to $\Lambda^t\Sigma\Lambda.$
+\end{proof}
+
+To check condition 3, we apply the weak dependence property to the characteristic functions :
+\begin{lem} \label{car}
+\begin{equation*}
+\left|\cov(e^{it(z_{1,n}+\cdots+z_{ j ,n})},e^{itz_{ j +1,n}})\right|\\
+ \leq
+C j  p^{2d}r^{-\gamma}.
+\end{equation*} 
+\end{lem}
+
+\begin{proof}
+First note that $$z_{i,n}=\frac 1{n^{d/2}}\sum_{X_l\neq X_{l'}\in P_{i,p}}\sum_{t=1}^m
+\lambda_t\ \1\{d(X_l, X_{l'})\le R_u\}=\frac 1{n^{d/2}}\sum_{u=1}^m
+\lambda_uN^{(2)}(D_{i,t}), $$
+where $D_{i,u}$ is the $R_t$-neighborhood of the principal diagonal in $P_{i,p}^{2}$. Let $\delta>0$  and cover  $D_{i,u}$ with a grid of size scale $\delta$. Consider the union $U_{i,u}$ of all the cubes of the grid that are included in $D_{i,u}$. Then $N^{(2)}(D_{i,u})$ can be split into $N^{(2)}(U_{i,u})+N^{(2)}(D_{i,u}\setminus U_{i,u})$. Applied to $t=1$ to $m$ and $i=1$ to $ j $, this allows to write
+$z_{1,n}+\cdots+z_{ j ,n}=S_1+T_1$ and similarly $z_{ j +1,n}=S_2+T_2$ where the terms in $S$ correspond to union of cubes and the terms in $T$ correspond to the complementaries.
+Each cube of the domain $U_{i,u}$ has a $N^{(2)}$ counting measure that is the product of the counting measure of two cubes of measure $\delta$ in $P_{i,p}$. There are at most $(p/\delta)^d$ such cubes in each $P_{i,p}$ so that $S_1$ depends on the counting measure $N$ of at most $ j (p/\delta)^d$ cubes of measure $\delta^d$. Similarly, $S_2$ depends on the counting measure $N$ of at most $ (p/\delta)^d$ cubes of measure $\delta^d$.  From Definition \ref{kwdeppc} :
+$$
+\left|\cov(e^{itS_1},e^{itS_2})\right|\\ \leq C  j   p^{2d}r^{-\gamma}.
+$$
+Note that
+\begin {multline*}
+\left|\cov(e^{it(S_1+T_1)},e^{it(S_2+T_2)})- \cov(e^{itS_1},e^{itS_2})\right|\\ \leq\left|\cov(e^{itS_1}(e^{itT_1}-1),e^{it(S_2+T_2)})\right|+\left|\cov(e^{itS_1},e^{itS_2}(e^{itT_2}-1))\right|.
+\end {multline*}
+
+\begin {align*}
+\left(\cov(e^{itS_1}(e^{itT_1}-1),e^{it(S_2+T_2)})\right)^2\leq &\var(e^{itS_1}(e^{itT_1}-1))\var(e^{it(S_2+T_2)})\\
+\leq &\E|e^{itS_1}(e^{itT_1}-1)|^2\E|e^{it(S_2+T_2)}|^2\\
+\leq& t^2\E\left(T_1^2\right).
+\end {align*}
+Similarly $
+\left(\cov(e^{itS_1},e^{itS_2}(e^{itT_2}-1))\right)^2\leq t^2\E\left(T_2^2\right).$
+Choose $\delta\leq p^{-d}$, then the $D_{i,u}\setminus U_{i,u}$ have a measure converging to 0 as $p$ goes to infinity and so do 
+$E\left(T_1^2\right)$ and $E\left(T_2^2\right)$.
+\end{proof}
+From Lemma \ref{car}, we get
+$$T(n)\leq4\sum_{j=1}^{k(n)} Cjp^{2d}q^{-\gamma}\leq2k(n)^2
+jp^{2d}q^{-\gamma}\leq2Cn^{2d}q^{-\gamma}=O\left(n^{2d-\gamma\beta}\right)$$ so that it tends to 0 as soon as $\gamma>2d/\beta>2d/\alpha$.
+\\From Proposition \ref{tab}, we conclude that  $ \sum_{i=1}^k u_{i,n}$
+tends in distribution to ${\cal
+N}(0,\Lambda^t\Sigma\Lambda)$.\\
+
+We now prove that $\sum_iv_{i,n}-\E(v_{i,n})$ is negligible with respect to the sum of the $\sum_iu_{i,n}-\E(u_{i,n}$ because its variance tends to 0. We cut $Q_n$ into cubes of side $M$. Assume for simplicity sake that $p$ and $q$ are  divisible by $M$, to avoid to have remainder parts  smaller than  cubes that do not make  any difference in the result. In this case the cubes contributing to $v_{i,n}$ are in direct contact with $P_{i,n}$.  Consider the shape of $Q_n$. The cubes are located in two hyperplanes in each of the $d$ dimensions. Each hyperplane contains at most  $(p/M+2)^{d-1}$ such cubes so that there are at most $Q=2d(2p/M)^{d-1}$ contributing cubes. Denote these cubes $C^M_{i,j}$ with $j \in J$. Define  $A'_{i,j,M,R_s}=\{(x,y); x\in  P_{i,j,M},\;y\in C^M_{i,j},\;\1(\{d(x, y)\leq R_s\}\}$, where $P_{i,j,M}$ is the set of points of $P_{i,p}$ that are closer than $M$ from the cube $C^M_{i,j}$ and $\zeta'_{i,j,M,R_s}=N^{(2)}(A'_{i,j,M,R_s})$.  Note that $m(A'_{i,j,M,R_s})\leq 3^{d-1}M^{2d}$.
+\begin{eqnarray*} 
+v_{i,n}&=&\frac {1 }{n^{d/2}}\sum_{j\in J}\sum_{t=1}^m \lambda_t \zeta'_{i,j,M,R_t}.
+\end{eqnarray*} so that 
+\begin{eqnarray*}
+\var(v_{i,n}) &\leq& \frac {1 }{n^{d}}\sum_{t,t'=1}^m\sum_{(j,j')\in J^2}\left|\lambda_t\lambda_{t'}\cov\left( \zeta'_{i,j,M,R_t},\zeta'_{i,j',M,R_{t'}}\right) \right |.
+\end{eqnarray*}
+Following a direct adaptation of Proposition \ref{Triangle}, taking into account the polytopic shape of the sets  $A'_{i,j,M,R_s}$,
+\begin{eqnarray*}
+\left|\cov\left( \zeta'_{i,j,M,R_t},\zeta'_{i,j',M,R_{t'}}\right) \right |&\leq &8CM_Z m(A'_{i,j,M,R_t})m(A'_{i,j,M,R_{t'}})(rM)^{-\gamma}\\
+&\leq &8CM_Z3^{2d-2}M^{4d}(rM)^{-\gamma}
+\end{eqnarray*}
+if the two have interdistance larger than $rM$.
+We define a partition $(G_r)_{r\in \N}$ in  $J^2$ by considering the distance $rM$ between the two corresponding cubes $C^M_j$ and $C^M_{j'}$. There are at most $Qd3^{d-1}$ elements in $G_0$ and for each of them we use the Cauchy Schwarz inequality and the bound  
+$$
+SUSPECT\frac {1 }{n^d}\var \left(\zeta'_{i,j,M,R_t}\right)\leq\frac {(M_Z+M_Z^2)3^{2d-2}M^{4d}}{n^d},$$ 
+to get
+\begin{eqnarray*}\frac {1 }{n^{d}}\sum_{(j,j')\in G_0}\left|\cov\left( \zeta'_{i,j,M,R_t},\zeta'_{i,j',M,R_{t'}}\right)\right|\leq16dCM_Z18^{d-1}M^{5-d}\frac {p^{d-1}}{n^d}.
+\end{eqnarray*}
+There are at most $Qd(2r+3)^{d-1}$ elements in $G_r$ and for each of them we use the weak dependence inequality:
+\begin{eqnarray*}\frac {1 }{n^{d}}\sum_{(j,j')\in G_r}\left|\cov\left( \zeta'_{i,j,M,R_t},\zeta'_{i,j',M,R_{t'}}\right)\right|\leq16d^2CM_Z72^{d-1}M^{5-d}r^{2d-2-\gamma}\frac {p^{d-1}}{n^d}.
+\end{eqnarray*}
+\begin{align*}
+\var(v_{i,n})=\frac {1 }{n^d}\sum_{r=0}^\infty \sum_{t,t'=1}^m\sum_{(j,j')\in G_r}\left|\lambda_t\lambda_{t'}\cov\left( \zeta'_{i,j,M,R_t},\zeta'_{i,j',M,R_{t'}}\right)\right|=O\left(\frac {p^{d-1}}{n^d}\right).
+\end{align*}
+as the sum over $r$ is finite. Then $\sum _{i=1}^k\var(v_{i,n})=O\left(p^{-1}\right).$\\
+
+
+Now we give a bound to the covariances:
+\begin{eqnarray*}
+\left|\cov(v_{i,n},v_{i',n})\right| &\leq& \frac {1 }{n^{d}}\sum_{t,t'=1}^m\sum_{(j,j')\in J^2}\left|\lambda_t\lambda_{t'}\cov\left( \zeta'_{i,j,M,R_t},\zeta'_{i',j',M,R_{t'}}\right) \right |.
+\end{eqnarray*}
+\begin{lem}
+If $P_{i,n}$ and $P_{i',n}$ have interdistance $D$ then
+\begin{equation}
+	\left|\cov(v_{i,n},v_{i',n})\right| \leq C_c  \frac{p^{d-1}(D-2M)^{d-\gamma}}{n^d}.
+\end{equation}
+\end{lem}
+\begin{proof}
+ Denote  $C^M_{i',j'}$ with $j' \in J'$ the cubes of size $M$ around $P_{i',n}$.
+We define a partition $(G_r)_{0\leq r \leq p/M+1}$ in  $J\times J'$ by considering the distance $D+(r-2)M$ between the two corresponding cubes $C^M_{i,j}$ and $C^M_{i',j'}$.   
+There are at most $Qd(2r+1)^{d-1}$ elements in $G_r$ and for each of them we use the weak dependence inequality:
+\begin{eqnarray*}\frac {1 }{n^{d}}\sum_{(j,j')\in G_r}\left|\cov\left( \zeta'_{i,j,M,R_t},\zeta'_{i',j',M,R_{t'}}\right)\right|\leq 16d^2CM_Z18^{d-1}M^{5-d}r^{d-1}(D+(r-2)M)^{-\gamma}\frac {p^{d-1}}{n^d}.
+\end{eqnarray*}
+Denote $\varepsilon_D = M/(D-2M)$ so that
+$$
+\sum_{r=0}^{p/M+1}r^{d-1}(D+(r-2)M)^{-\gamma}=(D-2M)^{d-\gamma}M^{-d}\sum_{r=0}^{p/M+1}\frac 1 {\varepsilon_D}(r\varepsilon_D)^{d-1}(1+r\varepsilon_D)^{-\gamma}
+$$
+ and  the sum over $r$ converges to $\int_1^{p/D} x^{d-1}(1+x)^{-\gamma}dx$ and is bounded as $D$ converges to infinity. Summarizing all the constants in a constant $C_c$, we get
+
+\begin{align*}
+\left|\cov(v_{i,n},v_{i',n})\right| &\leq& \frac {1 }{n^{d}}\sum_{t,t'=1}^m\sum_{(j,j')\in J^2}\left|\lambda_t\lambda_{t'}\cov\left( \zeta'_{i,j,M,R_t},\zeta'_{i',j',M,R_{t'}}\right) \right |\leq C_c\frac {p^{d-1}(D-2M)^{d-\gamma}}{n^d}.
+\end{align*}
+\end{proof}
+Now  fix $i$ and  sum  the covariances for all $i'=1$ to $k$. There are at most $2d3^{d-1}$ nearest neighbors at distance $D=q$, and  generally at most $2d(2r+1)^{d-1}$ at distance larger than $r(p+q)$ for $r=1$ to $a$;
+ \begin{align*}\sum_{i'=1}^k\cov(v_{i,n},v_{i',n})\leq &C_c2d3^{d-1}\frac {p^{d-1}}{n^d}\left((q-2M)^{d-\gamma}+\sum_{r=1}^{a}(2r+1)^{d-1}(rp-2M)^{d-\gamma}\right).
+\end{align*}
+then this sum is $O\left( p^{d-1}(q-2M)^{d-\gamma}n^{-d}\right)$ and $\sum_{i'=1}^k\sum_{i'=1}^k\cov(v_{i,n},v_{i',n})=O\left((q-2M)^{d-\gamma}p^{-1}\right).$
+ Then $var(\sum_{i=1}^kv_{i,n})=O\left(p^{-1}\right)$ and $\sum_{i=1}^kv_{i,n}$ is negligible with respect to $\sum_{i=1}^ku_{i,n}$.\\
+
+Consider $w_n$. Cut $Q_n$ into cubes of size $M$ : $( C^M_{i})_{i \in K}$. There are at most $Q=d(q/M)(p/M)^{d-1}$ such cubes. Define  $A''_{i,j,M,R_s}=\{(x,y); x\in   C^M_{i},\;y\in C^M_{j},\;\1(\{d(x, y)\leq R_s\}\}$, and $\zeta''_{i,j,M,R_s}=N^{(2)}(A''_{i,j,M,R_s})$. As before, the variable $\zeta''_{i,j,M,R_s}$ is  null if $ C^M_{i}$ and  $C^M_{j}$ are not in direct contact. 
+\begin{eqnarray*}
+\var(w_{n}) &\leq& \frac {1 }{n^{d}}\sum_{t,t'=1}^m\sum_{(i,i')\in K^2}\left|\lambda_t\lambda_{t'}\cov\left( \zeta''_{i,j,M,R_t},\zeta''_{i',j',M,R_{t'}}\right) \right|.
+\end{eqnarray*}
+
+First consider the case where the distance between $C^M_{i}$ and  $C^M_{i'}$ is strictly less than $3M$. Here we use the Cauchy-Schwarz inequality:
+\begin{align*}
+\left|\cov\left( \zeta''_{i,j,M,R_t},\zeta''_{i',j',M,R_{t'}}\right)\right|\leq & \var\left( \zeta''_{i,j,M,R_t}\right)^{1/2}\\
+\leq &\var\left( \zeta''_{i,j,M,R_t}\right)^{1/2}\var\left( \zeta''_{i',j',M,R_t}\right)^{1/2}\\
+\leq & M^4_Zm(A''_{i,j,M,R_t})m(A''_{i',j',M,R_{t'}})\\
+\leq & M_Z^4M^4.
+\end{align*}
+There are at most $Q$ choices for $i$, $7^d-1$ choices around $i$ for pour $i'$,  $3^d-1$ choices around $i$ for pour $j$ and $3^d-1$ choices around $i'$ for pour $j'$. The sum of covariances of this kind is less than $C_{w,1}Q$ where $C_{w,1}$ is a constant.
+
+***********
+nECESSIT2 DE LA VARIANCE DE LA PROPO 5,,,\\
+If the distance between $C^M_{i}$ and  $C^M_{i'}$ is greater than $3M$, we denote $G_r$ the subset of index $(i,j,i',j')$ such that the interdistance between $A''_{i,j,M,R_t}$ and $A''_{i',j',M,R_{t'}}$ is $r$. There are at most $Q (2d(r+3)M)^{d-1} 9^{d-1}$ elements in $G_r$ and for each of them
+$$
+\left|\cov\left(N^{(2)}(A''_{i,j,M,R_t}),N^{(2)}(A''_{i',j',M,R_{t'}})\right)\right|\leq 8CM_ZM^4 r^{-\gamma}
+$$
+but 
+$$
+\sum_{r=1}^\infty 8CM_ZM^4 9^{d-1}Qr^{-\gamma} (2d(r+3)M)^{d-1} \leq C_{w,2}Q,
+$$
+where $C_{w,2}$ is a constant, so that $\var(w_{n})\leq (C_{w,1}+C_{w,2}) Q {n^{-d}}$ and
+ converges  to zero as $n$ converges to infinity.
+Then $w_n$ is negligible with respect to $\sum_{i=1}^ku_{i,n}$.
+
+\bibliographystyle{plain}
+\bibliography{coxrip}\end{document}
+
+
+***************************************************************************************************************************
+\subsection{Expectation}
+We compute the expectation of the estimator and an approximation of it as $n$ tends to infinity.
+\begin{prop}
+The expectation $\E(\widehat K_{n}(R))$ converges to $E_2(R)/\rho^2$ as $n$ tends to infinity, where
+$E_2(R)=\int_{B(0,R)} \E( Z(0) Z(x_1))dx_1$.
+\end{prop}
+\begin{proof} 
+$$
+\E(\widehat K_{n}(R)|Z) =n^d\P\{N>1\}e(R,\tilde Z)
+$$
+$$
+\E(\widehat K_{n}(R)) =n^d\E\left(\P\{N>1\} e(R,\tilde Z)\right)
+$$
+First we prove two strong law of large numbers results
+\begin{lem}Let $Z$ be a positive bounded $\kappa$-weak dependent field. Assume that its dependence coefficients $\kappa(r)$ are less than $Cr^{-\alpha}$ with $C>0$ and $\alpha>3d$.
+Then $Z(A_n)/n^d$ and $N(A_n)/n^d$ converge a.s. to $\rho$.
+\end{lem}
+\begin{proof}  
+The first result is a direct consequence of Lemma 8.1 in \cite {DE}.
+Note that $Z(A_n)=\sum_{i\in \{0,..,n-1\}^d}Z(B_i)$. Lemma 8.1 implies that
+$$
+\E\left(\frac{Z(A_n)-\rho n^d}{n^{d/2}}\right)^4\leq C.
+$$
+Denote $T_n=\frac{Z(A_n)}{n^d}-\rho$. We get
+\begin{equation}\label{T4}
+	\E(T_n^4)\leq \frac{C}{n^{2d}}
+\end{equation}
+so that $\sum_{i=1}^n\E (T_i^4)< \infty.$ 
+From this $\E\left(\sum_{i=1}^nT_i^4\right)< \infty $, $\sum_{i=1}^nT_i^4<\infty$ a.s. and $T_n$ converges a.s. to 0.\\
+Denote $W_{n}=\frac{N(A_n)}{\rho n^d}$.  We have $\E(W_{n})=1$.
+ $$ \var(W_n)=\E(\var(W_n)|Z(A_n))+\var(\E(W_n)|Z(A_n)))=\frac 1{n^{2d}\rho^2}\left(\E(Z(A_n))+\var(Z(A_n))\right).$$
+ From equation \ref{T4}, we get $$\frac 1{\rho^2n^{2d}}\var(Z(A_n))=\frac 1{\rho^2}\E(T_n^2)\leq\frac {C^{1/2}}{\rho^2n^d},$$ so that $ \var(W_n)\leq \frac {\rho+C^{1/2}}{\rho^2n^d}$. For $\delta>0$, the Markov
+inequality gives
+$$\P(|W_n-1|>\delta)\le
+\frac{\var(W_n)}{\delta^2}.$$ Then, with
+$\delta=n^{-1/4}$,
+$\displaystyle\sum_{n=1}^\infty\P(|W_n-1|>n^{-1/4})<\sum_{n=1}^\infty\frac  {\rho+C^{1/2}}{\rho^2n^{d-1/2}}<\infty$.
+From the Borel-Cantelli lemma, we get that $W_n$
+converges a.s. to 1.\end{proof}
+As $n$ tends to infinity, $Z(A_n)$ converges a.s. to $+\infty$ and $\P\{N>1\}=1- (1+Z(A_n))e^{-Z(A_n)}$ converges a.s. to 1.
+
+$$e(R,\tilde Z)=\iint_{A_n^2} \tilde Z(x_1) \tilde Z(x_2)h(x_1,x_2,R)dx_1dx_2$$
+Using stationarity of $Z$ :
+$$\E e(R,\tilde Z)=n^d\int_{B(0,R)} \E(\tilde Z(0) \tilde Z(x_1))dx_1.$$ 
+As $Z(A_n)/n^d$ converges a.s. to $\rho$, $\E e(R,\tilde Z)$ converges to $E_2(R)/\rho^2n^d$. 
+$\E(\widehat K_{n}(R))$converges to  $E_2(R)/\rho^2$.
+\end{proof}
+
+
+\subsection{Variance}
+Let $(U_i)$  denote independent variables with    density $\tilde Z$ and define
+\begin{eqnarray*}
+h(x,y,R)&=&\1\{ d(x,y)\leq R\}\\
+e(R,\tilde Z)&=&\E(h(U_1,U_2, R))
+\end{eqnarray*}
+We compute the variance of the estimator and the asymptotics of this quantity as $n$ tends to infinity.
+\begin{prop}
+ The variance $\var(\widehat K_{n}(R))$ converges to $ \frac {E_4(R)+4E_3(R)}{\rho^4}+\frac{2E_2(R)-4E_2(R)^2}{\rho^3}$ as $n$ tends to infinity, where
+\begin{eqnarray*}E_3(R)&=&\iint_{B(0,R)^2} \E\left( Z(0)Z(x_1)Z(x_2)\right)dx_1dx_2\\E_4(R)&=&\int_{B(0,R)}dx_1 \int_{\R^d}dx_2\int_{B(x_2,R)}dx_3\cov( Z(0)Z(x_1),Z(x_2) Z(x_3) )h(0,x_1, R)h(x_2,x_3, R).
+\end{eqnarray*}
+\end{prop}
+\begin{proof}
+We use the relation
+$$\var(\widehat K_{n}(R))=\var\E (\widehat K_{n}(R)|Z)+\E
+\var(\widehat K_{n}(R)|Z).$$  We first consider the conditional
+expectation of $\widehat K_{n}(R)$.
+$$
+\E(\widehat K_{n}(R)|Z) =n^d\P\{N>1\}e(R,\tilde Z)
+$$
+$$
+\var\E(\widehat K_{n}(R)|Z)
+=n^{2d}\left(\E\left(\left(\P\{N>1\}\right)^2 (e(R,\tilde Z))^2\right)-\E\left(\P\{N>1\}e(R,\tilde Z)\right)^2\right).$$
+Asymptotically, $\P\{N>1\}$ converges a.s. to 1. Similarly 
+\begin{eqnarray*} \E (e(R,\tilde Z)^2)&=&\iiiint_{A_n^4} \E(\tilde Z(x_1) \tilde Z(x_2)\tilde Z(x_3) \tilde Z(x_4))h(x_1,x_2,R)h(x_3,x_4,R)dx_1dx_2dx_3dx_4\\&=&\iiiint_{A_n^4} \cov(\tilde Z(x_1) \tilde Z(x_2),\tilde Z(x_3) \tilde Z(x_4))h(x_1,x_2,R)h(x_3,x_4,R)dx_1dx_2dx_3dx_4\\&+&\E(e(R,\tilde Z))^2\end{eqnarray*} 
+and $\E (e(R,\tilde Z)^2)$ converges to $E_4/\rho^4n^{3d}+ \E(e(R,\tilde Z))^2$.
+Thus $\var\E(\widehat K_{n}(R)|Z)$ converges to $E_4(R)/\rho^4n^{d}$.\end{proof}
+We compute the conditional variance. Conditionally to  $Z$, the
+locations of the points are $N$ i.i.d. variables $U_i$ with density
+$\tilde Z$ on $A_n$.
+\begin{eqnarray*} \var(\widehat K_{n}(R)|Z) &=&n^{2d}\E\left(
+\frac{\1\{N>1\}}{N(N-1) }\sum_{i\neq j =1 }^N
+h(U_i,U_j,R)- e(R,\tilde Z)\right)^2.
+\end{eqnarray*} We introduce the H\"{o}ffding decomposition of the $U$-statistic
+kernel $h$:
+$$h(x,y,R)-e(R,\tilde Z)=h_1(x,R)+h_1(y,R)+h_2(x,y,R),
+$$
+where $h_1(x,R)=\E (h(U,V,R)|\ V\!=x)$, $(U,V)$ being independent
+ random variables with density
+$\tilde Z$ on $A_n$.\\ Then $\E h_1(U,R)=0$ and $\E
+(h_2(U,V,R)|U)=\E (h_2(U,V,R)|V)=0$, so that
+\begin{eqnarray*}
+\var h(U,V,R)&=&\var h_1(U,R)+\var h_1(V,R)+\var
+h_2(U,V,R)\\&=&2\E h^2_1(U,R)+\var h_2(U,V,R). \end{eqnarray*}
+From the following decomposition into orthogonal variables : $$ \sum_{i\neq j = 1} ^k h(U_i,U_j,R)-e(R,\tilde Z)=2(k-1)\sum_{i = 1} ^k
+h_1(U_i,R)+\sum_{i\neq j = 1} ^k h_2(U_i,U_j,R).
+$$ we get
+\begin{eqnarray*}
+\E\left( \sum_{i\neq j =1 }^N
+h(U_i,U_j,R)-e(R,\tilde Z) \right)^2&=&4N(N-1)^2\E (h^2_1(U,R))+2N(N-1)
+\var\left(h_2(U,V,R)\right)\\
+&=&4N(N-1)(N-2)\E(
+h^2_1(U,R))+2N(N-1)\var\left(h(U,V,R)\right),
+\end{eqnarray*}
+and $\var\left(h(U,V,R)\right)=e(R,\tilde Z)-e(R,\tilde Z)^2$ so that
+\begin{eqnarray*}
+ \var(\widehat
+K_{n}(R)|Z)&=&4n^{2d}\E\left(\frac{\1\{N>1\}(N-2)}{N(N-1)}
+h^2_1(U,R)\right)\\&+&2n^{2d}\E\left(\frac{\1\{N>1\}}{N(N-1)}\left((e(R,\tilde Z)-e(R,\tilde Z)^2)\right)\right).
+\end{eqnarray*}
+But $\displaystyle \frac{\1\{N>1\}(N-2)}{N(N-1)}$ converges a.s. to $1/\rho n^d$ and $\displaystyle\frac{\1\{N>1\}}{N(N-1)}$ to $1/\rho^2 n^{2d}$.
+\begin{eqnarray*}
+\E(
+h^2_1(U,R))&=&\int_{A_n} \tilde Z(x_1)dx_1\left(\int_{A_n} \tilde Z(x_2)h(x_1,x_2, R)dx_2-e(R,\tilde Z)\right)^2\\
+&=&\iiint_{A_n^3} \tilde Z(x_1)\tilde Z(x_2)\tilde Z(x_3)h(x_1,x_2, R)h(x_1,x_3, R)dx_1dx_2dx_3-e(R,\tilde Z)^2
+\end{eqnarray*}
+The expectation of $\E(h^2_1(U,R))$ with respect to $Z$ converges to $E_3/\rho^3n^{2d}-E_4/\rho^4n^{3d}$.
+From this,  we get that $n^d\var(\widehat K_{n}(R))$ converges to $\displaystyle \frac {E_4(R)+4E_3(R)}{\rho^4}+\frac{2E_2(R)-4E_2(R)^2}{\rho^3}$.
+\\ We now apply the same decomposition to $\cov(\widehat
+K_{n}(R),\widehat K_{n}(R')) $,
+$
+ \cov(\E(\widehat K_{n}(R')|N),\E(\widehat K_{n}(R)|N))$ converges to
+   $e_{R'\!,Z}e(R,Z)$.
+\begin{eqnarray*}
+ \E\ \cov(\widehat K_{n}(r'),\widehat K_{n}(R)|N) \!\!\!\!&=&\!\!\!\!4n^{2d}\E\left(\frac {
+\1\{N>1\}(N-2)}{N(N-1)}\right)\cov(
+h_1(U,R'),h_1(U,R))\\\!\!\!\!&+&\!\!\!\!2n^d\E\left(\left(\frac{\1\{N>1\}}{N(N-1)}
+\right)\left(e(R,Z)-e(R',Z)e(R,Z)\right)\right).
+\end{eqnarray*}************************************************
+Lemme douteux pb Z(p) petit
+
+\begin{lem} Assume that $Z(P_{i,n})>(\rho/2) p^d$. Then $f_{1}(U_l)$ is $O(p^{-d})$  and $f_{2}(U_l,U_{l'})$ is bounded everywhere and $f_{2}(U_l,U_{l'})$ is $O(p^{-d})$ as soon as $\|U_l-U_{l'}\|>r$ .
+\end{lem}
+Et le cas ou Z(P) est petit probléme de champ f dependant. montrer que Z est borné inférieurement en utilisant lipshitz (si un point est haut il entraîne toute une bosse.
+\begin {proof} : The intensity of the inhomogeneous process is bounded by $C_Z$. So the density of $(U_l,U_{l'})$ is bounded by $(4C_Z/\rho^2)p^{-2d}$ and $f_{l'}(U_l)$ is bounded by $(4C_Z/\rho^2)p^{-d}$. Its expectation is equal to $\E(f(U_l,U_{l'}))$ and also bounded by $(4C_Z/\rho^2)p^{-d}$. When $\|U_l-U_{l'}\|>r$, $f_{2}(U_l,U_{l'})=-\E(f(U_l,U_{l'}))-f_1(U_{l'})-f_{1}(U_l)$ is
+bounded by $(12C_Z/\rho^2)p^{-d}$.\end{proof}
+
+*************************************************************
+\bibliographystyle{plain}
+\bibliography{coxrip}
+\end{document}
+
+
+
+\begin{thebibliography}{}
+\bibitem {BD}Bardet, J-M., Doukhan, P., Lang, G. \& Ragache, N.
+(2008).  Dependent Lindeberg central limit theorem and some
+applications, {\it ESAIM Probab. Stat.}, {\bf 12} , 154-172.
+\bibitem{BE}
+Bernstein, S. (1939). Quelques remarques sur le th\'eor\`eme
+limite Liapounoff. {\it C. R. (Dokl.) Acad. Sci. URSS}, {\bf 24},
+3-8.\end{thebibliography}
+
+
+
+\subsection{Variance}
+We compute the variance of the estimator and the asymptotics of this quantity as $n$ tends to infinity.
+\begin{prop}
+ The variance $\var(\widehat K_{n}(R))$ converges to $ \frac {E_4(R)+4E_3(R)}{\rho^4}+\frac{2E_2(R)-4E_2(R)^2}{\rho^3}$ as $n$ tends to infinity, where
+\begin{eqnarray*}E_3(R)&=&\iint_{B(0,R)^2} \E\left( Z(0)Z(x_1)Z(x_2)\right)dx_1dx_2\\E_4(R)&=&\int_{B(0,R)}dx_1 \int_{\R^d}dx_2\int_{B(x_2,R)}dx_3\cov( Z(0)Z(x_1),Z(x_2) Z(x_3) )h(0,x_1, R)h(x_2,x_3, R).
+\end{eqnarray*}
+\end{prop}
+\begin{proof}
+We use the relation
+$$\var(\widehat K_{n}(R))=\var\E (\widehat K_{n}(R)|Z)+\E
+\var(\widehat K_{n}(R)|Z).$$  We first consider the conditional
+expectation of $\widehat K_{n}(R)$.
+$$
+\E(\widehat K_{n}(R)|Z) =n^d\P\{N>1\}e(R,\tilde Z)
+$$
+$$
+\var\E(\widehat K_{n}(R)|Z)
+=n^{2d}\left(\E\left(\left(\P\{N>1\}\right)^2 (e(R,\tilde Z))^2\right)-\E\left(\P\{N>1\}e(R,\tilde Z)\right)^2\right).$$
+Asymptotically, $\P\{N>1\}$ converges a.s. to 1. Similarly 
+\begin{eqnarray*} \E (e(R,\tilde Z)^2)&=&\iiiint_{A_n^4} \E(\tilde Z(x_1) \tilde Z(x_2)\tilde Z(x_3) \tilde Z(x_4))h(x_1,x_2,R)h(x_3,x_4,R)dx_1dx_2dx_3dx_4\\&=&\iiiint_{A_n^4} \cov(\tilde Z(x_1) \tilde Z(x_2),\tilde Z(x_3) \tilde Z(x_4))h(x_1,x_2,R)h(x_3,x_4,R)dx_1dx_2dx_3dx_4\\&+&\E(e(R,\tilde Z))^2\end{eqnarray*} 
+and $\E (e(R,\tilde Z)^2)$ converges to $E_4/\rho^4n^{3d}+ \E(e(R,\tilde Z))^2$.
+Thus $\var\E(\widehat K_{n}(R)|Z)$ converges to $E_4(R)/\rho^4n^{d}$.\\
+We compute the conditional variance. Conditionally to  $Z$, the
+locations of the points are $N$ i.i.d. variables $U_i$ with density
+$\tilde Z$ on $A_n$.
+\begin{eqnarray*} \var(\widehat K_{n}(R)|Z) &=&n^{2d}\E\left(
+\frac{\1\{N>1\}}{N(N-1) }\sum_{i\neq j =1 }^N
+h(U_i,U_j,R)- e(R,\tilde Z)\right)^2.
+\end{eqnarray*} We introduce the H\"{o}ffding decomposition of the $U$-statistic
+kernel $h$:
+$$h(x,y,R)-e(R,\tilde Z)=h_1(x,R)+h_1(y,R)+h_2(x,y,R),
+$$
+where $h_1(x,R)=\E (h(U,V,R)|\ V\!=x)$, $(U,V)$ being independent
+ random variables with density
+$\tilde Z$ on $A_n$.\\ Then $\E h_1(U,R)=0$ and $\E
+(h_2(U,V,R)|U)=\E (h_2(U,V,R)|V)=0$, so that
+\begin{eqnarray*}
+\var h(U,V,R)&=&\var h_1(U,R)+\var h_1(V,R)+\var
+h_2(U,V,R)\\&=&2\E h^2_1(U,R)+\var h_2(U,V,R). \end{eqnarray*}
+From the following decomposition into orthogonal variables : $$ \sum_{i\neq j = 1} ^k h(U_i,U_j,R)-e(R,\tilde Z)=2(k-1)\sum_{i = 1} ^k
+h_1(U_i,R)+\sum_{i\neq j = 1} ^k h_2(U_i,U_j,R).
+$$ we get
+\begin{eqnarray*}
+\E\left( \sum_{i\neq j =1 }^N
+h(U_i,U_j,R)-e(R,\tilde Z) \right)^2&=&4N(N-1)^2\E (h^2_1(U,R))+2N(N-1)
+\var\left(h_2(U,V,R)\right)\\
+&=&4N(N-1)(N-2)\E(
+h^2_1(U,R))+2N(N-1)\var\left(h(U,V,R)\right),
+\end{eqnarray*}
+and $\var\left(h(U,V,R)\right)=e(R,\tilde Z)-e(R,\tilde Z)^2$ so that
+\begin{eqnarray*}
+ \var(\widehat
+K_{n}(R)|Z)&=&4n^{2d}\E\left(\frac{\1\{N>1\}(N-2)}{N(N-1)}
+h^2_1(U,R)\right)\\&+&2n^{2d}\E\left(\frac{\1\{N>1\}}{N(N-1)}\left((e(R,\tilde Z)-e(R,\tilde Z)^2)\right)\right).
+\end{eqnarray*}
+But $\displaystyle \frac{\1\{N>1\}(N-2)}{N(N-1)}$ converges a.s. to $1/\rho n^d$ and $\displaystyle\frac{\1\{N>1\}}{N(N-1)}$ to $1/\rho^2 n^{2d}$.
+\begin{eqnarray*}
+\E(
+h^2_1(U,R))&=&\int_{A_n} \tilde Z(x_1)dx_1\left(\int_{A_n} \tilde Z(x_2)h(x_1,x_2, R)dx_2-e(R,\tilde Z)\right)^2\\
+&=&\iiint_{A_n^3} \tilde Z(x_1)\tilde Z(x_2)\tilde Z(x_3)h(x_1,x_2, R)h(x_1,x_3, R)dx_1dx_2dx_3-e(R,\tilde Z)^2
+\end{eqnarray*}
+The expectation of $\E(h^2_1(U,R))$ with respect to $Z$ converges to $E_3/\rho^3n^{2d}-E_4/\rho^4n^{3d}$.
+From this,  we get that $n^d\var(\widehat K_{n}(R))$ converges to $\displaystyle \frac {E_4(R)+4E_3(R)}{\rho^4}+\frac{2E_2(R)-4E_2(R)^2}{\rho^3}$.
+\\ We now apply the same decomposition to $\cov(\widehat
+K_{n}(R),\widehat K_{n}(R')) $,
+$
+ \cov(\E(\widehat K_{n}(R')|N),\E(\widehat K_{n}(R)|N))$ converges to
+   $e_{R'\!,Z}e(R,Z)$.
+\begin{eqnarray*}
+ \E\ \cov(\widehat K_{n}(r'),\widehat K_{n}(R)|N) \!\!\!\!&=&\!\!\!\!4n^{2d}\E\left(\frac {
+\1\{N>1\}(N-2)}{N(N-1)}\right)\cov(
+h_1(U,R'),h_1(U,R))\\\!\!\!\!&+&\!\!\!\!2n^d\E\left(\left(\frac{\1\{N>1\}}{N(N-1)}
+\right)\left(e(R,Z)-e(R',Z)e(R,Z)\right)\right).
+\end{eqnarray*}
+
+
+****************************************Poisson bound*********************
+\begin{Def}
+A point process  $X$ is dominated by an homogeneous Poisson process $X_0$ of intensity $\rho$, if for any compact set $A$ and for any $k\geq e^2\rho m(A)$, their respective count processes $N$ and $N_0$ satisfy:
+
+\begin{equation}
+	\P\{N(A)=k\}\leq \P\{N_0(A)=k\}
+\end{equation}
+\end{Def}
+The Poisson control is satisfied generally for Cox processes when the intensity process is bounded and for Neyman-Scott processes when the intensity measure of the offspring process has a finite mass. This local control of the intensity allows to compute covariance bound for products of  count processes:
+ 
+
+\begin{prop}\label{Poissonbound}Assume that $X$ is a $\kappa$-weakly dependent point process and that 
+\begin{itemize}
+	\item $\kappa(r)\leq C$, if $r<1$
+	\item $\kappa(r)\leq Cr^{-\gamma}$, if $r\geq 1$
+\end{itemize}
+with  $C>1$ and $\gamma>1$. Assume that its count process is dominated by  an homogeneous Poisson process count $N_0$ of intensity $\rho$. Let  $(A_i)_{i=1,\ldots ,u}$ and $(B_i)_{i=1,\ldots ,v}$ be two finite collections of compact sets separated by a distance $r$.  Let $m$ be a bound for their Lebesgue measure.
+$$ 
+\left|\cov\left(\prod_{i=1}^uN(A_i),\prod_{j=1}^{v}N(B_j)\right)\right|\leq 2C\left(a(r,(A_i), (B_j))\right)^{u+v}(\psi\left((A_i), (B_j)\right) r^{-\gamma},
+$$
+for $$a(r,(A_i), (B_j))=\gamma \log(r)-\log\left(\sum_{i=1}^u m(A_i)\right)-\log\left(\sum_{j=1}^v m(B_j)\right)-\log(C)+(u+v+2)\log(2).$$
+\end{prop}
+
+\subsection {Proof of Proposition \ref{Poissonbound}.}
+\begin{proof}
+For $M>0$ to be chosen, define
+\begin{align*}N_M(A_i)=N(A_i)\1\{N(A_i)<M\}\\
+ \bar N_M(A_i)=N(A_i)\1\{N(A_i)\geq M\}.
+ \end{align*} Let $I_1$ be a subset of $I=\{1,\ldots,u\}$ and ${\cal P}(I)$ the set of subsets of $I$. Denote $\bar I_1=I\setminus I_1$ and 
+$$\Pi_{I_1}=\prod_{i\in I_1}N_{M}(A_i)\prod_{i\in \bar I_1}\bar N_{M}(A_i).$$
+With analogous notation for $J=\{1,\ldots,v\}$ 
+$$ 
+\cov\left(\prod_{i=1}^uN(A_i),\prod_{j=1}^{v}N(B_j)\right)=\sum_{I_1 \in {\cal P}(I)}\sum_{J_1 \in {\cal P}(J)}\cov(\Pi_{I_1},\Pi_{J_1}).
+$$
+But 
+\begin{align*}
+	|\cov(\Pi_{I_1},\Pi_{J_1})|&\leq \E (\Pi_{I_1}\Pi_{J_1})+\E (\Pi_{I_1})\E (\Pi_{J_1}) \\&\leq \E \left(\prod_{i\in I_1}N_{M}(A_i)\prod_{i'\in \bar I_1}\bar N_{M}(A_{i'})\prod_{j\in J_1}N_{M}(B_j)\prod_{j'\in \bar J_1}\bar N_{M}(B_{j'})\right)\\
+	 &+ \E \left(\prod_{i\in I_1}N_{M}(A_i)\prod_{i'\in \bar I_1}\bar N_{M}(A_{i'})\right)\E \left(\prod_{j\in J_1}N_{M}(B_j)\prod_{j'\in \bar J_1}\bar N_{M}(B_{j'})\right)\\
+	&\leq M^{|I_1|+|J_1|}\E \left(\prod_{i'\in \bar I_1}\bar N_{M}(A_{i'})\prod_{j'\in \bar J_1}\bar N_{M}(B_{j'})\right)\\&+M^{|I_1|+|J_1|}\E \left(\prod_{i'\in \bar I_1}\bar N_{M}(A_{i'})\right)\E \left(\prod_{j'\in \bar J_1}\bar N_{M}(B_{j'})\right).
+\end{align*}
+Denote $a=|\bar I_1|+|\bar J_1|$. If $a\neq 0$,  by the H\"older inequality:
+$$
+\E \left(\prod_{i'\in \bar I_1}\bar N_{M}(A_{i'})\prod_{j'\in \bar J_1}\bar N_{M}(B_{j'})\right)\leq \prod_{i'\in \bar I_1}(\E(\bar N_{M}(A_{i'})^a)^{1/a}\prod_{j'\in \bar J_1}(\E(\bar N_{M}(B_{j'})^a)^{1/a}.
+$$
+Denote $\lambda=\rho  m(A_{i'})$. Choose $M\geq e^2\lambda$ and $M>a$, then
+$$\E(\bar N_{M}(A_{i'})^a) \leq \E(\1\{N_0(A_{i'})\geq M\} N_0(A_{i'})^a) \leq \sum_{k=M}^\infty k^a \frac{(\lambda)^k}{k!}e^{-\lambda}.
+$$
+Using $k!\geq k^ke^{-k}$ we get:
+$$k^a \frac{\lambda^k}{k!}e^{-\lambda}\leq k^{a-k}(e \lambda)^k\leq \left(\frac M{e \lambda}\right)^{a-k}(e \lambda)^a.$$
+Then
+$$\E(\bar N_{M}(A_{i'})^a ) \leq M^a\sum_{k=M}^\infty \left(\frac M{e \lambda}\right)^{-k}\leq \frac{M^{a-M} (e \lambda)^M}{1-\frac {e \lambda}M}\leq 2M^{a-M} (e \lambda)^M.
+$$
+Because the bound of the product is composed of exactly $a$ factors, we get
+$$\E \left(\prod_{i'\in \bar I_1}\bar N_{M}(A_{i'})\prod_{j'\in \bar J_1}\bar N_{M}(B_{j'})\right)\leq 2M^{a-M} (e \lambda)^M$$ 
+As a special case we also get
+$$\E \left(\prod_{i'\in \bar I_1}\bar N_{M}(A_{i'})\right)\leq 2M^{|\bar I_1|-M} (e \lambda)^M$$ 
+and $$\E \left(\prod_{j'\in \bar J_1}\bar N_{M}(B_{j'})\right)\leq 2M^{|\bar J_1|-M} (e \lambda)^M$$ 
+ 
+
+Define $m$ as a bound for each mass $m(A_i)$ or $m(B_j)$, such that $e^2\rho m>1$. For $M\geq e^2\rho m$:
+\begin{align*}
+	|\cov(\Pi_{I_1},\Pi_{J_1})|\leq 2 M^{u+v} ((M/e\rho m)^{-M}+ (2M/e\rho m)^{-2M})\leq 4 M^{u+v} e^{-M} .
+\end{align*}
+
+If  $a=0$, from $\kappa$-weak dependence, we get:
+$$
+\left|\cov\left(\prod_{i=1}^uN_M(A_i),\prod_{j=1}^{v}N_M(B_j)\right)\right|\leq C\psi\left((A_i),(B_j)\right)M^{u+v}r^{-\gamma}.
+$$
+Collecting all the terms, we get
+$$ 
+\left|\cov\left(\prod_{i=1}^uN(A_i),\prod_{j=1}^{v}N(B_j)\right)\right|\leq M^{u+v}\left(2^{u+v+2} e^{-M}+C\psi\left((A_i), (B_j)\right)r^{-\gamma}\right).
+$$ 
+Recall that  $$a(r,(A_i), (B_j))=\gamma \log(r)-\log\left(\sum_{i=1}^u m(A_i)\right)-\log\left(\sum_{j=1}^v m(B_j)\right)-\log(C)+(u+v+2)\log(2).$$
+ If $a(r,(A_i), (B_j))\leq e^2\rho m$, we choose $M=e^2\rho m$  and $2^{u+v+1}e^{-M}\leq C\psi\left((A_i),(B_j)\right) r^{-\gamma}$,
+$$
+\left|\cov\left(\prod_{i=1}^uN(A_i),\prod_{j=1}^{v}N(B_j)\right)\right|\leq 2C(e^2\rho m)^{u+v}\psi\left((A_i),(B_j)\right)r^{-\gamma}.
+$$
+If $a(r,(A_i), (B_j))>e^2\rho m$, we choose $M=a(r)$ then $2^{u+v+1}e^{-M}=C\psi\left((A_i),(B_j)\right) r^{-\gamma}$ 
+$$ 
+\left|\cov\left(\prod_{i=1}^uN(A_i),\prod_{j=1}^{v}N(B_j)\right)\right|\leq 2Ca(r)^{u+v}\psi\left((A_i), (B_j)\right) r^{-\gamma}.
+$$
+\end{proof}
