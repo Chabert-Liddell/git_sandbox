@@ -1,6 +1,6 @@
 % Quick review of Git
 % Pierre Navaro
-% Institut de Mathematique de Rennes
+% Version FinisteR 2018
 
 # About Dropbox
 
